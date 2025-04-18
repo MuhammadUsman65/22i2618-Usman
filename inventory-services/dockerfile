@@ -1,0 +1,8 @@
+FROM node:18-alpine AS builder
+WORKDIR /usman/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+# No build step—Node runs directly
+EXPOSE 3004
+CMD ["npm", "start"]

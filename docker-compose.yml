@@ -1,0 +1,65 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: lab-Sessional
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+  customer-service:
+    build:
+      context: ./customer-services
+    container_name: customer
+    ports:
+      - "3005:3005"
+    depends_on:
+      - mongo
+
+  inventory-service:
+    build:
+      context: ./inventory-services
+    container_name: inventory
+    ports:
+      - "3004:3004"
+    depends_on:
+      - mongo
+
+  menu-service:
+    build:
+      context: ./menu-services
+    container_name: menu
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+
+  order-service:
+    build:
+      context: ./order-services
+    container_name: order
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongo
+
+  payment-service:
+    build:
+      context: ./payment-services
+    container_name: payment
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:

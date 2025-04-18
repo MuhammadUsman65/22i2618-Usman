@@ -1,0 +1,8 @@
+FROM node:18-alpine AS builder
+WORKDIR /api-gateway
+COPY package*.json ./
+RUN npm install
+COPY . .
+# No build step—Node runs directly
+EXPOSE 3002
+CMD ["npm", "start"]
